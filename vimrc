@@ -28,6 +28,11 @@ set noshowmatch
 set wildmenu
 set nonumber
 set ruler
+if has('win32') || has('win64')
+	set list listchars=tab:>-,trail::-,eol:@
+elseif has('unix')
+	set list listchars=tab:>-,trail:-,eol:↲
+endif
 set list listchars=tab:>-,trail:-,eol:↲
 set nowrap
 set laststatus=2
@@ -98,6 +103,7 @@ endif
 "--------------------------------------------------
 if version >= 600
   if has('win32') || has('win64')
+    " if using windows ...
     " if using win32 ...
     if $LANG=='' || ($OSTYPE=='cygwin' && $TERM=='cygwin')
       let $LANG='ja'
@@ -317,6 +323,11 @@ let g:neocomplcache_enable_at_startup = 1
 inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
 "_区切りの補完の有効化
 let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_camel_completion = 1
+"シンタックスをキャッシュする最小文字長の設定
+let g:neocomplcache_min_sytax_length = 3
+"タブで補完する
+inoremap <expr><Tab> neocomplcache#close_popup()
 "シンタックスをキャッシュする最小文字長の設定
 let g:neocomplcache_min_sytax_length = 3
 "ファイルタイプ毎に補完のディクショナリを設定
