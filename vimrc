@@ -33,7 +33,6 @@ if has('win32') || has('win64')
 elseif has('unix')
 	set list listchars=tab:>-,trail:-,eol:↲
 endif
-set list listchars=tab:>-,trail:-,eol:↲
 set nowrap
 set laststatus=2
 set showcmd
@@ -326,8 +325,6 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_enable_camel_completion = 1
 "シンタックスをキャッシュする最小文字長の設定
 let g:neocomplcache_min_sytax_length = 3
-"タブで補完する
-inoremap <expr><Tab> neocomplcache#close_popup()
 "シンタックスをキャッシュする最小文字長の設定
 let g:neocomplcache_min_sytax_length = 3
 "ファイルタイプ毎に補完のディクショナリを設定
@@ -340,7 +337,7 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 
 "* pathogen
-call pathogen#runtime_append_all_bundles()
+"call pathogen#runtime_append_all_bundles()
 "--------------------------------------------------
 " }}}
 "**************************************************
