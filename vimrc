@@ -259,11 +259,8 @@ inoremap <m-d>	<c-r>=Date()<cr>
 "**************************************************
 "* Autocmd {{{
 "--------------------------------------------------
-"autocmd BufNewFile,BufReadPost *.pc setf esqlc
-"autocmd FileType jsp,asp,php,xml,perl syntax sync minlines=500 maxlines=1000
-"autocmd FileType python setlocal ts=4 sw=4 sta et sts ai
-autocmd! FileType twitvim call s:twitvim_my_settings()
-autocmd! BufNewFile,BufRead * set nowrap
+autocmd BufNewFile,BufRead * set nowrap
+autocmd BufNewFile,BufRead *.c imap bs \
 " }}}
 "**************************************************
 
@@ -300,21 +297,6 @@ endif
 "* Plugin Settings{{{
 "--------------------------------------------------
 "* unite.vim
-
-"* twitvim
-let twitvim_count=50
-nnoremap tp :PosttoTwitter<CR>
-nnoremap tf :FriendsTwitter<CR>
-nnoremap tr :RefreshTwitter<CR>
-if has('win32') || has('win64')
-	let twitvim_browser_cmd = 'firefox.exe'
-endif
-if has('unix')
-	let twitvim_browser_cmd = 'firefox'
-endif
-function! s:twitvim_my_settings()
-	set wrap
-endfunction
 
 "* neocomplcache
 let g:neocomplcache_enable_at_startup = 1
