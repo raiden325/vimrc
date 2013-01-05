@@ -244,8 +244,10 @@ endif
 
 " toggle list
 nmap <F2> :let &list=(&list == 1 ? 0 : 1)<cr>
-" rotate tab size
-nmap <silent> <F3> :let &ts=(&ts*2 > 16 ? 2 : &ts*2)<cr>:echo "tabstop:" . &ts<cr>
+" helptags
+if has('mac')
+  nmap <F3> :helptags /Applications/MacVim.app/Contents/Resources/vim/runtime/doc
+endif
 " toggle highlight search
 nmap <F4> :let &hls=(&hls == 1 ? 0 : 1)<cr>
 " vimshell
@@ -261,6 +263,7 @@ inoremap <m-d>	<c-r>=Date()<cr>
 "--------------------------------------------------
 autocmd BufNewFile,BufRead * set nowrap
 autocmd BufNewFile,BufRead *.c imap bs \
+autocmd FileType twitvim call s:MyTwitVimSettings()
 " }}}
 "**************************************************
 
@@ -320,6 +323,20 @@ let g:vimfiler_safe_mode_by_default = 0
 
 "* pathogen
 "call pathogen#runtime_append_all_bundles()
+
+"* TwitVim
+let g:twitvim_count=50
+nnoremap tp :PosttoTwitter<CR>
+nnoremap tf :FriendsTwitter<CR>
+nnoremap tr :RefreshTwitter<CR>
+if has('win32') || has('win64')
+  let twitvim_browser_cmd='firefox.exe'
+elseif has('unix')
+  let twitvim_browser_cmd='firefox'
+endif
+function! s:MyTwitVimSettings()
+  set wrap
+endfunction
 "--------------------------------------------------
 " }}}
 "**************************************************
