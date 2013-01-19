@@ -33,6 +33,7 @@ if has('win32') || has('win64')
 elseif has('unix')
 	set list listchars=tab:>-,trail:-,eol:↲
 endif
+set nrformats-=octal
 set nowrap
 set laststatus=2
 set showcmd
