@@ -322,9 +322,6 @@ let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
 
-"* pathogen
-"call pathogen#runtime_append_all_bundles()
-
 "* TwitVim
 let g:twitvim_count=50
 nnoremap tp :PosttoTwitter<CR>
@@ -338,6 +335,31 @@ endif
 function! s:MyTwitVimSettings()
   set wrap
 endfunction
+
+"* neobundle.vim
+filetype off
+if has('vim_starting')
+  if has('win32') || has('win64')
+    set runtimepath+='path to neobundle directory'
+  elseif has('unix')
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+  endif
+    call neobundle#rc(expand('~/.bundle'))
+endif
+NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'git://github.com/Shougo/vimfiler.git'
+NeoBundle 'git://github.com/Shougo/vimshell.git'
+NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
+  \       'cygwin' : 'make -f make_cygwin.mak',
+  \       'mac' : 'make -f make_mac.mak',
+  \       'unix' : 'make -f make_unix.mak',
+  \       },
+  \ }
+NeoBundle 'git://github.com/vim-scripts/TwitVim'
+filetype plugin on
+filetype indent on
 "--------------------------------------------------
 " }}}
 "**************************************************
