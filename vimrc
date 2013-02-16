@@ -346,6 +346,8 @@ if has('vim_starting')
   endif
     call neobundle#rc(expand('~/.bundle'))
 endif
+NeoBundle 'git://github.com/vim-scripts/TwitVim'
+NeoBundle 'git://github.com/yuratomo/w3m.vim'
 NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 NeoBundle 'git://github.com/Shougo/unite.vim.git'
