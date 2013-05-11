@@ -363,6 +363,14 @@ NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
 NeoBundle 'git://github.com/vim-scripts/TwitVim'
 filetype plugin on
 filetype indent on
+NeoBundleLazy 'Shougo/unite.vim', {
+  \ 'autoload' : {'commands' : ['unite']}
+  \}
+NeoBundleLazy 'Shougo/vimfiler'
+NeoBundleLazy 'vim-scripts/TwitVim'
+NeoBundleLazy 'yuratomo/w3m.vim'
+NeoBundleLazy 'Shougo/neocomplcache'
+NeoBundleLazy 'Shougo/vimshell'
 "--------------------------------------------------
 " }}}
 "**************************************************
