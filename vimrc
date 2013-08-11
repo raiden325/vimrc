@@ -302,19 +302,18 @@ endif
 "--------------------------------------------------
 "* unite.vim
 
-"* neocomplcache
-let g:neocomplcache_enable_at_startup = 1
+"* neocomlete
+let g:neocomplete#enable_at_startup = 1
 "ファイル名補完
-inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
+inoremap <expr><C-x><C-f> neocomlete#manual_filename_complete()
 "_区切りの補完の有効化
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_camel_completion = 1
+"let g:neocomlete#enable_underbar_completion = 1
+"let g:neocomlete#enable_camel_completion = 1
 "シンタックスをキャッシュする最小文字長の設定
-let g:neocomplcache_min_sytax_length = 3
-"シンタックスをキャッシュする最小文字長の設定
-let g:neocomplcache_min_sytax_length = 3
+let g:neocomlete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 "ファイルタイプ毎に補完のディクショナリを設定
-""let g:neocomplcache_dictionary_filetype_lists={
+""let g:neocomlete_dictionary_filetype_lists={
 
 "* vimfiler
 "デフォルトのファイラーにする
@@ -349,11 +348,11 @@ endif
 NeoBundle 'git://github.com/vim-jp/vimdoc-ja'
 NeoBundle 'git://github.com/vim-scripts/TwitVim'
 NeoBundle 'git://github.com/yuratomo/w3m.vim'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/vimfiler.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
+NeoBundle 'git://github.com/Shougo/neocomplete.vim'
+"NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
+NeoBundle 'git://github.com/Shougo/unite.vim'
+NeoBundle 'git://github.com/Shougo/vimfiler'
+NeoBundle 'git://github.com/Shougo/vimshell'
 NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
   \       'cygwin' : 'make -f make_cygwin.mak',
   \       'mac' : 'make -f make_mac.mak',
@@ -363,14 +362,14 @@ NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
 NeoBundle 'git://github.com/vim-scripts/TwitVim'
 filetype plugin on
 filetype indent on
-NeoBundleLazy 'Shougo/unite.vim', {
-  \ 'autoload' : {'commands' : ['unite']}
-  \}
-NeoBundleLazy 'Shougo/vimfiler'
-NeoBundleLazy 'vim-scripts/TwitVim'
-NeoBundleLazy 'yuratomo/w3m.vim'
-NeoBundleLazy 'Shougo/neocomplcache'
-NeoBundleLazy 'Shougo/vimshell'
+"NeoBundleLazy 'Shougo/unite.vim', {
+"  \ 'autoload' : {'commands' : ['unite']}
+"  \}
+"NeoBundleLazy 'Shougo/vimfiler'
+"NeoBundleLazy 'vim-scripts/TwitVim'
+"NeoBundleLazy 'yuratomo/w3m.vim'
+"NeoBundleLazy 'Shougo/neocomlete'
+"NeoBundleLazy 'Shougo/vimshell'
 "--------------------------------------------------
 " }}}
 "**************************************************
