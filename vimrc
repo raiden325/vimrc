@@ -360,6 +360,9 @@ NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
   \       },
   \ }
 NeoBundle 'git://github.com/vim-scripts/TwitVim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'mattn/vim-airline-hahhah'
+NeoBundle 'mattn/hahhah-vim'
 filetype plugin on
 filetype indent on
 "NeoBundleLazy 'Shougo/unite.vim', {
