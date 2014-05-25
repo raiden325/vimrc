@@ -65,6 +65,7 @@ endif
 if $TERM=='jfbterm'
   "fixdel
 endif
+set noundofile
 "let $GTK_IM_MODULE = 'xim'
 "let $GDK_USE_XFT = 0
 " }}}
