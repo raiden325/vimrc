@@ -322,20 +322,6 @@ let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
 
-"* TwitVim
-let g:twitvim_count=50
-nnoremap tp :PosttoTwitter<CR>
-nnoremap tf :FriendsTwitter<CR>
-nnoremap tr :RefreshTwitter<CR>
-if has('win32') || has('win64')
-  let twitvim_browser_cmd='firefox.exe'
-elseif has('unix')
-  let twitvim_browser_cmd='firefox'
-endif
-function! s:MyTwitVimSettings()
-  set wrap
-endfunction
-
 "* neobundle.vim
 filetype off
 if has('vim_starting')
@@ -359,7 +345,6 @@ NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
   \       'unix' : 'make -f make_unix.mak',
   \       },
   \ }
-NeoBundle 'git://github.com/vim-scripts/TwitVim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mattn/vim-airline-hahhah'
 NeoBundle 'mattn/hahhah-vim'
