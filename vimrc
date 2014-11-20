@@ -257,6 +257,8 @@ nmap <F5> :VimShell<cr>
 " vimfiler
 nmap <F6> :VimFiler<cr>
 inoremap <m-d>	<c-r>=Date()<cr>
+" unite outline
+nmap <F7> :Unite outline<cr>
 " }}}
 "**************************************************
 
