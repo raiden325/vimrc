@@ -267,7 +267,7 @@ nmap <F7> :Unite outline<cr>
 "--------------------------------------------------
 autocmd BufNewFile,BufRead * set nowrap
 autocmd BufNewFile,BufRead *.c imap bs \
-autocmd FileType twitvim call s:MyTwitVimSettings()
+autocmd QuickFixCmdPost *grep* cwindow 8
 " }}}
 "**************************************************
 
@@ -317,12 +317,24 @@ let g:neocomlete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 "ファイルタイプ毎に補完のディクショナリを設定
 ""let g:neocomlete_dictionary_filetype_lists={
-
 "* vimfiler
 "デフォルトのファイラーにする
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
+"* vim-quickrun
+"quickrunのデフォルト設定
+let g:quickrun_config = {
+  \ "_" : {
+  \     "outputter" : "multi:buffer:quickfix",
+  \     "outputter/buffer/split" : ":botright 8sp",
+  \     "runner" : "vimproc",
+  \     "runner/vimproc/updatetime" : 50
+  \ },
+  \}
+"<C-c>で実行を強制終了させる
+"quickrun.vimが実行していない場合には<C-c>を呼び出す
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "* neobundle.vim
 filetype off
@@ -334,13 +346,13 @@ if has('vim_starting')
   endif
     call neobundle#rc(expand('~/.bundle'))
 endif
-NeoBundle 'git://github.com/vim-jp/vimdoc-ja'
-NeoBundle 'git://github.com/Shougo/neocomplete.vim'
-NeoBundle 'git://github.com/Shougo/unite-outline'
-NeoBundle 'git://github.com/Shougo/unite.vim'
-NeoBundle 'git://github.com/Shougo/vimfiler'
-NeoBundle 'git://github.com/Shougo/vimshell'
-NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
+NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimproc', {'build' :{
   \       'cygwin' : 'make -f make_cygwin.mak',
   \       'mac' : 'make -f make_mac.mak',
   \       'unix' : 'make -f make_unix.mak',
@@ -349,6 +361,7 @@ NeoBundle 'git://github.com/Shougo/vimproc', {'build' :{
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mattn/vim-airline-hahhah'
 NeoBundle 'mattn/hahhah-vim'
+NeoBundle 'thinca/vim-quickrun'
 filetype plugin on
 filetype indent on
 "NeoBundleLazy 'Shougo/unite.vim', {
