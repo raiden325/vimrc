@@ -322,14 +322,20 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
+
 "* vim-quickrun
 "quickrunのデフォルト設定
 let g:quickrun_config = {
   \ "_" : {
+  \     "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+  \     "hook/unite_quickfix/enable_failure" : 1,
+  \     "hook/close_quickfix/enable_exit" : 1,
+  \     "hook/close_buffer/enable_failure" : 1,
+  \     "hook/close_buffer/enable_empty_data" : 1,
   \     "outputter" : "multi:buffer:quickfix",
   \     "outputter/buffer/split" : ":botright 8sp",
   \     "runner" : "vimproc",
-  \     "runner/vimproc/updatetime" : 50
+  \     "runner/vimproc/updatetime" : 40
   \ },
   \}
 "<C-c>で実行を強制終了させる
@@ -362,6 +368,8 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'mattn/vim-airline-hahhah'
 NeoBundle 'mattn/hahhah-vim'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundle 'osyo-manga/shabadou.vim'
 filetype plugin on
 filetype indent on
 "NeoBundleLazy 'Shougo/unite.vim', {
