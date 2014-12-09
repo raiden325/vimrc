@@ -216,34 +216,6 @@ if !exists('g:mapleader')
   let g:mapleader = '\'
 endif
 
-" expand path
-cmap <c-x> <c-r>=expand('%:p:h')<cr>/
-" expand file (not ext)
-cmap <c-z> <c-r>=expand('%:p:r')<cr>
-" try tab completion
-cmap <s-tab> <c-p>
-" like windows
-vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
-vmap <tab> >gv
-vmap <s-tab> <gv
-" quit with no erase
-nmap <silent> gZZ :set t_te= t_ti= <cr>:quit<cr>:set t_te& t_ti&<cr>
-" shell with no erase
-nmap <silent> gsh :set t_te= t_ti= <cr>:sh<cr>:set t_te& t_ti&<cr>
-" for file complete
-cnoremap <c-g> <Space><BS>
-nmap te :tabedit<cr>
-nmap tc :tabclose<cr>
-
-if exists('&iminsert')
-  set iminsert=0
-  set imsearch=0
-  if !exists('&imoptions')
-    " for im_custom
-    inoremap <silent> <c-\> <c-o>:let &iminsert=(&iminsert==2?0:2)<cr>
-  endif
-endif
-
 " toggle list
 nmap <F2> :let &list=(&list == 1 ? 0 : 1)<cr>
 " helptags
