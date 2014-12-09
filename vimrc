@@ -307,8 +307,6 @@ endif
 
 "* neocomlete
 let g:neocomplete#enable_at_startup = 1
-"ファイル名補完
-inoremap <expr><C-x><C-f> neocomlete#manual_filename_complete()
 "_区切りの補完の有効化
 "let g:neocomlete#enable_underbar_completion = 1
 "let g:neocomlete#enable_camel_completion = 1
