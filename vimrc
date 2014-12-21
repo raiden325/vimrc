@@ -225,12 +225,12 @@ endif
 " toggle highlight search
 nmap <F4> :let &hls=(&hls == 1 ? 0 : 1)<cr>
 " vimshell
-nmap <F5> :VimShell<cr>
+nmap vs :VimShell<cr>
 " vimfiler
-nmap <F6> :VimFiler<cr>
+nmap vf :VimFiler<cr>
 inoremap <m-d>	<c-r>=Date()<cr>
 " unite outline
-nmap <F7> :Unite outline<cr>
+nmap uo :Unite outline<cr>
 " }}}
 "**************************************************
 
