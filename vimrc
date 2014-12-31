@@ -240,6 +240,8 @@ nmap uo :Unite outline<cr>
 autocmd BufNewFile,BufRead * set nowrap
 autocmd BufNewFile,BufRead *.c imap bs \
 autocmd QuickFixCmdPost *grep* cwindow 8
+autocmd BufNewFile *.sh 0r $HOME/.vim/template/sh.txt
+autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
 " }}}
 "**************************************************
 
