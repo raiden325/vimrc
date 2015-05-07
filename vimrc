@@ -323,7 +323,9 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
   endif
     call neobundle#rc(expand('~/.bundle'))
+    "call neobundle#begin(expand('~/.vim/bundle'))
 endif
+"NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/unite-outline'
@@ -342,6 +344,7 @@ NeoBundle 'mattn/hahhah-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'osyo-manga/unite-quickfix'
 NeoBundle 'osyo-manga/shabadou.vim'
+"call neobundle#end()
 filetype plugin on
 filetype indent on
 "NeoBundleLazy 'Shougo/unite.vim', {
