@@ -277,6 +277,44 @@ endif
 "**************************************************
 "* Plugin Settings{{{
 "--------------------------------------------------
+"* dein.vim
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.vim/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+" 設定開始
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  " プラグインリストを収めた TOML ファイル
+  " ~/.vim/rc/dein.toml,deinlazy.tomlを用意する
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  " 設定終了
+  call dein#end()
+  call dein#save_state()
+endif
+
+" もし、未インストールものものがあったらインストール
+if dein#check_install()
+  call dein#install()
+endif
+
 "* unite.vim
 
 "* neocomlete
@@ -313,48 +351,6 @@ let g:quickrun_config = {
 "<C-c>で実行を強制終了させる
 "quickrun.vimが実行していない場合には<C-c>を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
-"* neobundle.vim
-filetype off
-if has('vim_starting')
-  if has('win32') || has('win64')
-    set runtimepath+='path to neobundle directory'
-  elseif has('unix')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-  endif
-    call neobundle#begin(expand('~/.vim/bundle'))
-endif
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimproc', {'build' :{
-  \       'cygwin' : 'make -f make_cygwin.mak',
-  \       'mac' : 'make -f make_mac.mak',
-  \       'unix' : 'make -f make_unix.mak',
-  \       },
-  \ }
-NeoBundle 'bling/vim-airline'
-NeoBundle 'mattn/vim-airline-hahhah'
-NeoBundle 'mattn/hahhah-vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'osyo-manga/unite-quickfix'
-NeoBundle 'osyo-manga/shabadou.vim'
-call neobundle#end()
-filetype plugin on
-filetype indent on
-NeoBundleCheck
-"NeoBundleLazy 'Shougo/unite.vim', {
-"  \ 'autoload' : {'commands' : ['unite']}
-"  \}
-"NeoBundleLazy 'Shougo/vimfiler'
-"NeoBundleLazy 'vim-scripts/TwitVim'
-"NeoBundleLazy 'yuratomo/w3m.vim'
-"NeoBundleLazy 'Shougo/neocomlete'
-"NeoBundleLazy 'Shougo/vimshell'
 "--------------------------------------------------
 " }}}
 "**************************************************
