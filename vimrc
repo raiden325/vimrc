@@ -1,6 +1,6 @@
-" vi:set ts=9 sts=2 sw=2 tw=0:
-" vim:fdm=marker fdl=0 fdc=0 fdo+=jump,search:
-" vim:fdt=substitute(getline(v\:foldstart),'\\(.\*\\){\\{3}','\\1',''):
+"vim:set ts=9 sts=2 sw=2 tw=0:
+"vim:fdm=marker fdl=0 fdc=0 fdo+=jump,search:
+"vim:fdt=substitute(getline(v\:foldstart),'\\(.\*\\){\\{3}','\\1',''):
 "
 "**************************************************
 
@@ -53,21 +53,8 @@ if executable('grep')
   endif
 endif
 set shellslash
-if $SSH_CLIENT != ''
-  set clipboard=autoselect,exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen\\\|xterm
-else
-  set clipboard=autoselect,exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen
-endif
 set diffopt=filler,iwhite
-if has('unix') && $SHELL == ''
-  set shell=/bin/bash
-endif
-if $TERM=='jfbterm'
-  "fixdel
-endif
 set noundofile
-"let $GTK_IM_MODULE = 'xim'
-"let $GDK_USE_XFT = 0
 " }}}
 "**************************************************
 
@@ -231,14 +218,17 @@ nmap vf :VimFiler<cr>
 inoremap <m-d>	<c-r>=Date()<cr>
 " unite outline
 nmap uo :Unite outline<cr>
+" QuickRun
+nmap qr :QuickRun<cr>
 " }}}
 "**************************************************
 
 "**************************************************
 "* Autocmd {{{
 "--------------------------------------------------
-autocmd BufNewFile,BufRead * set nowrap
-autocmd BufNewFile,BufRead *.c imap bs \
+autocmd!
+autocmd BufNewFile,BufReadPre * set nowrap
+autocmd BufNewFile,BufReadPre *.c imap bs \
 autocmd QuickFixCmdPost *grep* cwindow 8
 autocmd BufNewFile *.sh 0r $HOME/.vim/template/sh.txt
 autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
@@ -248,13 +238,8 @@ autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
 "**************************************************
 "* Syntax And Colorscheme {{{
 "--------------------------------------------------
+syntax on
 if isdirectory($VIMRUNTIME.'/syntax')
-  if &t_Co > 2 || has("gui_running")
-   syntax on
-  endif
-  if has("autocmd")
-    filetype plugin indent on
-  endif
   autocmd BufReadPost *
     \ silent! if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
@@ -315,6 +300,8 @@ if dein#check_install()
   call dein#install()
 endif
 
+filetype plugin indent on
+
 "* unite.vim
 
 "* neocomlete
@@ -351,6 +338,67 @@ let g:quickrun_config = {
 "<C-c>で実行を強制終了させる
 "quickrun.vimが実行していない場合には<C-c>を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
+"* lightline.vim
+let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'LightLineModified',
+        \   'readonly': 'LightLineReadonly',
+        \   'fugitive': 'LightLineFugitive',
+        \   'filename': 'LightLineFilename',
+        \   'fileformat': 'LightLineFileformat',
+        \   'filetype': 'LightLineFiletype',
+        \   'fileencoding': 'LightLineFileencoding',
+        \   'mode': 'LightLineMode'
+        \ }
+        \ }
+
+function! LightLineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+    return fugitive#head()
+  else
+    return ''
+  endif
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
 "--------------------------------------------------
 " }}}
 "**************************************************
