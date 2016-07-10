@@ -29,7 +29,7 @@ set wildmenu
 set nonumber
 set ruler
 if has('win32') || has('win64')
-	set list listchars=tab:>-,trail::-,eol:@
+	set list listchars=tab:>-,trail:-,eol:@
 elseif has('unix')
 	set list listchars=tab:>-,trail:-,eol:↲
 endif
