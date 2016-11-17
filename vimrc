@@ -220,6 +220,8 @@ inoremap <m-d>	<c-r>=Date()<cr>
 nmap uo :Unite outline<cr>
 " QuickRun
 nmap qr :QuickRun<cr>
+" dein update
+nmap du :call dein#update()<cr>
 " }}}
 "**************************************************
 
