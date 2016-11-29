@@ -7,7 +7,7 @@ hook_post_update = '''
 	else
 		let cmd = 'make'
 	endif
-	let g:dein#pligin.build = cmd
+	let g:dein#plugin.build = cmd
 '''
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
