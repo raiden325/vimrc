@@ -1,16 +1,22 @@
 #起動時に読み込むプラグイン記述ファイル
 [[plugins]]
-repo = 'Shougo/dein.vim'
-
-[[plugins]]
 repo = 'Shougo/vimproc.vim'
-build = 'make'
-
+hook_post_update = '''
+	if executable('gmake')
+		let cmd = 'gmake'
+	else
+		let cmd = 'make'
+	endif
+	let g:dein#pligin.build = cmd
+'''
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -23,6 +29,9 @@ repo = 'Shougo/vimfiler'
 
 [[plugins]]
 repo = 'Shougo/vimshell'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'

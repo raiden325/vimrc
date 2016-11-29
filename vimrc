@@ -314,7 +314,6 @@ let g:neocomplete#enable_at_startup = 1
 "let g:neocomlete#enable_camel_completion = 1
 "シンタックスをキャッシュする最小文字長の設定
 let g:neocomlete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 "ファイルタイプ毎に補完のディクショナリを設定
 ""let g:neocomlete_dictionary_filetype_lists={
 "* vimfiler
@@ -326,17 +325,17 @@ let g:vimfiler_safe_mode_by_default = 0
 "* vim-quickrun
 "quickrunのデフォルト設定
 let g:quickrun_config = {
-	\ "_" : {
-	\		"hook/close_unite_quickfix/enable_hook_loaded" : 1,
-	\		"hook/unite_quickfix/enable_failure" : 1,
-	\		"hook/close_quickfix/enable_exit" : 1,
-	\		"hook/close_buffer/enable_failure" : 1,
-	\		"hook/close_buffer/enable_empty_data" : 1,
-	\		"outputter" : "multi:buffer:quickfix",
-	\		"outputter/buffer/split" : ":botright 8sp",
-	\		"runner" : "vimproc",
-	\		"runner/vimproc/updatetime" : 40
-	\	},
+		\  "_" : {
+		\    "hook/close_unite_quickfix/enable_hook_loaded" : 1,
+		\    "hook/unite_quickfix/enable_failure" : 1,
+		\    "hook/close_quickfix/enable_exit" : 1,
+		\    "hook/close_buffer/enable_failure" : 1,
+		\    "hook/close_buffer/enable_empty_data" : 1,
+		\    "outputter" : "multi:buffer:quickfix",
+		\    "outputter/buffer/split" : ":botright 8sp",
+		\    "runner" : "vimproc",
+		\    "runner/vimproc/updatetime" : 40
+		\    },
 	\}
 "<C-c>で実行を強制終了させる
 "quickrun.vimが実行していない場合には<C-c>を呼び出す
