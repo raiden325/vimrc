@@ -1,6 +1,6 @@
 "**************************************************
 "* Vim Environment {{{
-"--------------------------------------------------
+"**************************************************
 scriptencoding utf-8
 if $MSYSTEM != ''
 	finish
@@ -13,7 +13,7 @@ set ignorecase
 set smartcase
 set tabstop=4
 set shiftwidth=4
-set history=50
+set history=1000
 set noexpandtab
 set autoindent
 set backspace=indent,eol,start
@@ -39,16 +39,8 @@ set visualbell
 set incsearch
 set isprint=@,~-247,249-255
 set tags=./tags,tags,../tags
-if executable('grep')
-	if globpath(substitute($PATH, ';', ',', 'g'), 'grep.exe') =~ 'borland'
-		set grepprg=grep\ -no
-	else
-		set grepprg=grep\ -n
-	endif
-endif
-set shellslash
 set diffopt=filler,iwhite
-set noundofile
+"**************************************************
 " }}}
 "**************************************************
 
@@ -58,7 +50,7 @@ let no_vimrc_example=1
 
 "**************************************************
 "* System Environment {{{
-"--------------------------------------------------
+"**************************************************
 if filereadable($VIM . '/vimrc') && filereadable($VIM . '/ViMrC')
 	set tags=./tags,tags
 endif
@@ -66,95 +58,55 @@ endif
 if $HOME=='' && has('win32') || has('win64')
 	let $HOME=$USERPROFILE
 endif
-
-if $OSTYPE=='cygwin' || $TERM=='cygwin' || has('unix')
-	let $DESKTOP=$HOME.'/Desktop'
-else
-	let $DESKTOP=$USERPROFILE."/\x83\x66\x83\x58\x83\x4e\x83\x67\x83\x62\x83\x76"
-	if !isdirectory($DESKTOP)
-		let $DESKTOP=$USERPROFILE."/\xC3\xDE\xBD\xB8\xC4\xAF\xCC\xDF"
-	endif
-	let $MYDOCUMENT=$USERPROFILE.'/My Documents'
-endif
-
+"**************************************************
 " }}}
 "**************************************************
 
-"***e**********************************************
+"**************************************************
 "* Japanese Environment {{{
-"--------------------------------------------------
-if version >= 600
-	if has('win32') || has('win64')
-		" if using windows ...
-		" if using win32 ...
-		if $LANG=='' || ($OSTYPE=='cygwin' && $TERM=='cygwin')
-			let $LANG='ja'
-			set encoding=cp932
-			lang mes ja
+"**************************************************
+if has('win32') || has('win64')
+	" if using windows ...
+	" if using win32 ...
+	if $LANG=='' || ($OSTYPE=='cygwin' && $TERM=='cygwin')
+		let $LANG='ja'
+		set encoding+=cp932
+		lang mes ja
+	endif
+else
+	" if using cygwin console ...
+	if exists("$HOMEDRIVE")
+		set background=dark
+		if $LANG==''
+			let $LANG='ja_JP.SJIS'
+			set encoding+=cp932
 		endif
-	else
-		" if using cygwin console ...
-		if exists("$HOMEDRIVE")
-			set background=dark
-			if $LANG==''
-				let $LANG='ja_JP.SJIS'
-				set encoding=cp932
-			endif
-			if $TERM=='xterm-color' && !has('gui_running')
-				let $LANG='ja_JP.utf-8'
-				set encoding=utf-8
-				language ja_JP.utf-8
-				set langmenu=ja_jp.utf-8
-			elseif $LANG=='ja.SJIS' || $LANG=='ja_JP.SJIS'
-				set encoding=cp932
-				set langmenu=japanese_japan.932
-			else
-				set encoding=euc-jp
-				set langmenu=ja_jp.eucjp
-			endif 
-		" if using unix console ...
-		elseif $TERM=='kon' || $TERM=='kterm'
-			if $LANG =~ 'UTF'
-				set termencoding=euc-jp
-				set ambiwidth=double
-			else
-				let $LANG='ja'
-				set encoding=euc-jp
-			endif
+		if $TERM=='xterm-color' && !has('gui_running')
+			let $LANG='ja_JP.utf-8'
+			set encoding+=utf-8
+			language ja_JP.utf-8
+			set langmenu=ja_jp.utf-8
+		elseif $LANG=='ja.SJIS' || $LANG=='ja_JP.SJIS'
+			set encoding+=cp932
+			set langmenu=japanese_japan.932
 		else
-		"let $LANG='ja'
-		"set langmenu=ja_jp.eucjp
-		"set encoding=eucjp
+			set encoding+=euc-jp
+			set langmenu=ja_jp.eucjp
 		endif
-	endif
-endif
-
-if has('iconv')
-	let s:enc_euc = 'euc-jp'
-	let s:enc_jis = 'iso-2022-jp'
-	" check the supporting JISX0213 for iconv
-	if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-		let s:enc_euc = 'euc-jisx0213'
-		let s:enc_jis = 'iso-2022-jp-3'
-	endif
-	" build fileencodings
-	set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8
-	set fileencodings+=utf-8
-	if &encoding =~# '^euc-\%(jp\|jisx0213\)$'
-		let &encoding = s:enc_euc
-		silent! let &encoding = 'eucjp-ms'
+	" if using unix console ...
+	elseif $TERM=='kon' || $TERM=='kterm'
+		if $LANG =~ 'UTF'
+			set termencoding=euc-jp
+			set ambiwidth=double
+		else
+			let $LANG='ja'
+			set encoding+=euc-jp
+		endif
 	else
-		let &fileencodings = &fileencodings .','. s:enc_euc . ',eucjp-ms'
+	"let $LANG='ja'
+	"set langmenu=ja_jp.eucjp
+	"set encoding=eucjp
 	endif
-	set fileencodings+=cp932
-	unlet s:enc_euc
-	unlet s:enc_jis
-elseif executable('iconv')
-	function! CharConvert()
-		call system("iconv -f " . v:charconvert_from . " -t " . v:charconvert_to . " <" . v:fname_in . " >" . v:fname_out)
-		return v:shell_error
-	endfun
-	set charconvert=CharConvert()
 endif
 
 " if windows, detect mac format
@@ -186,59 +138,56 @@ if exists('&ambiwidth') && (has('gui_running') || $TERM=="cygwin")
 	" some xterm don't support cjk width
 	set ambiwidth=double
 endif
+"**************************************************
 " }}}
 "**************************************************
 
 "**************************************************
 "* Key Maps {{{
-"--------------------------------------------------
+"**************************************************
 if !exists('g:mapleader')
 	" for all mapleader
 	let g:mapleader = '\'
 endif
 
 " toggle list
-nmap <F2> :let &list=(&list == 1 ? 0 : 1)<cr>
-" helptags
-if has('mac')
-	nmap <F3> :helptags /Applications/MacVim.app/Contents/Resources/vim/runtime/doc
-endif
+nmap <F2> :set list!
 " toggle highlight search
 nmap <F4> :let &hls=(&hls == 1 ? 0 : 1)<cr>
 " vimshell
 nmap vs :VimShell<cr>
 " vimfiler
 nmap vf :VimFiler<cr>
-inoremap <m-d>	<c-r>=Date()<cr>
+inoremap <m-d>  <c-r>=Date()<cr>
 " unite outline
 nmap uo :Unite outline<cr>
 " QuickRun
 nmap qr :QuickRun<cr>
 " dein update
 nmap du :call dein#update()<cr>
+"**************************************************
 " }}}
 "**************************************************
 
 "**************************************************
 "* Autocmd {{{
-"--------------------------------------------------
+"**************************************************
 autocmd!
-autocmd BufNewFile,BufReadPre * set nowrap
-autocmd BufNewFile,BufReadPre *.c imap bs \
 autocmd QuickFixCmdPost *grep* cwindow 8
 autocmd BufNewFile *.sh 0r $HOME/.vim/template/sh.txt
 autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
+"**************************************************
 " }}}
 "**************************************************
 
 "**************************************************
 "* Syntax And Colorscheme {{{
-"--------------------------------------------------
+"**************************************************
 syntax on
 if isdirectory($VIMRUNTIME.'/syntax')
 	autocmd BufReadPost *
 	\ silent! if line("'\"") > 0 && line("'\"") <= line("$") |
-	\ exe "normal g`\"" |
+	\ normal! |
 	\ endif
 endif
 " colorscheme
@@ -252,12 +201,13 @@ else
 		silent! colorscheme torte
 	endif
 endif
+"**************************************************
 " }}}
 "**************************************************
 
 "**************************************************
 "* Plugin Settings{{{
-"--------------------------------------------------
+"**************************************************
 "* dein.vim
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.vim/dein')
@@ -283,7 +233,7 @@ if dein#load_state(s:dein_dir)
 	let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
 	" TOML を読み込み、キャッシュしておく
-	call dein#load_toml(s:toml,	   {'lazy': 0})
+	call dein#load_toml(s:toml, {'lazy': 0})
 	call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
 	" 設定終了
@@ -401,6 +351,6 @@ function! LightLineMode()
 	return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-"--------------------------------------------------
+"**************************************************
 " }}}
 "**************************************************
