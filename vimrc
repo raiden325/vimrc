@@ -40,6 +40,7 @@ set incsearch
 set isprint=@,~-247,249-255
 set tags=./tags,tags,../tags
 set diffopt=filler,iwhite
+set helplang=ja,en
 "**************************************************
 " }}}
 "**************************************************
@@ -51,10 +52,6 @@ let no_vimrc_example=1
 "**************************************************
 "* System Environment {{{
 "**************************************************
-if filereadable($VIM . '/vimrc') && filereadable($VIM . '/ViMrC')
-	set tags=./tags,tags
-endif
-
 if $HOME=='' && has('win32') || has('win64')
 	let $HOME=$USERPROFILE
 endif
