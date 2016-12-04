@@ -154,17 +154,8 @@ endif
 nmap <F2> :set list!
 " toggle highlight search
 nmap <F4> :let &hls=(&hls == 1 ? 0 : 1)<cr>
-" vimshell
-nmap vs :VimShell<cr>
-" vimfiler
-nmap vf :VimFiler<cr>
-inoremap <m-d>  <c-r>=Date()<cr>
-" unite outline
-nmap uo :Unite outline<cr>
 " QuickRun
 nmap qr :QuickRun<cr>
-" dein update
-nmap du :call dein#update()<cr>
 "**************************************************
 " }}}
 "**************************************************
@@ -184,12 +175,6 @@ autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
 "* Syntax And Colorscheme {{{
 "**************************************************
 syntax on
-if isdirectory($VIMRUNTIME.'/syntax')
-	autocmd BufReadPost *
-	\ silent! if line("'\"") > 0 && line("'\"") <= line("$") |
-	\ normal! |
-	\ endif
-endif
 " colorscheme
 if has("gui_running")
 	colorscheme desert

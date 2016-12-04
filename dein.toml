@@ -31,9 +31,6 @@ repo = 'Shougo/vimfiler'
 repo = 'Shougo/vimshell'
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-
-[[plugins]]
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]
