@@ -232,15 +232,21 @@ filetype plugin indent on
 
 "* denite.vim
 " Change file_rec command.
-call denite#custom#var('file_rec', 'command',
-\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+"call denite#custom#var('file_rec', 'command',
+"\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 " Change ignore_globs
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-\ [ '.git/', '.ropeproject/', '__pycache__/',
-\ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+"call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+"\ [ '.git/', '.ropeproject/', '__pycache__/',
+"\ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
 "* neocomlete
 let g:neocomplete#enable_at_startup = 1
+"for vim-clang
+if !exists('g:neocomplete#force_omni_input_patterns')
+	let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "_区切りの補完の有効化
 "let g:neocomlete#enable_underbar_completion = 1
 "let g:neocomlete#enable_camel_completion = 1
@@ -253,6 +259,17 @@ let g:neocomlete#sources#syntax#min_keyword_length = 3
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
+
+"* vim-clang
+"disable auto completion for vim-clang
+let g:clang_auto = 0
+
+"default longset can not work with neocomplete
+let g:clang_c_completeopt = 'menuone,preview'
+let g:clang_cpp_completeopt = 'menuone,preview'
+
+let g:clang_c_options = '-std=c11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 
 "* vim-quickrun
 "quickrunのデフォルト設定
