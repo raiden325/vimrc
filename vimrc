@@ -147,12 +147,6 @@ if !exists('g:mapleader')
 	let g:mapleader = '\'
 endif
 
-" toggle list
-nmap <F2> :set list!
-" toggle highlight search
-nmap <F4> :let &hls=(&hls == 1 ? 0 : 1)<cr>
-" QuickRun
-nmap qr :QuickRun<cr>
 "**************************************************
 " }}}
 "**************************************************
@@ -281,6 +275,8 @@ let g:quickrun_config = {
 		\    "hook/close_buffer/enable_failure" : 1,
 		\    "hook/close_buffer/enable_empty_data" : 1,
 		\    "outputter" : "multi:buffer:quickfix",
+		\    "hook/shabadoubi_touch_henshin/enable" : 1,
+		\    "hook/shabadoubi_touch_henshin/wait" : 20,
 		\    "outputter/buffer/split" : ":botright 8sp",
 		\    "runner" : "vimproc",
 		\    "runner/vimproc/updatetime" : 40
