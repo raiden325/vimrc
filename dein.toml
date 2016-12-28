@@ -15,8 +15,8 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 
-[[plugins]]
-repo = 'Shougo/denite.nvim'
+#[[plugins]]
+#repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -25,11 +25,19 @@ repo = 'Shougo/unite.vim'
 repo = 'Shougo/unite-outline'
 
 [[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
 repo = 'Shougo/vimfiler'
 
 [[plugins]]
 repo = 'Shougo/vimshell'
 
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
@@ -41,3 +49,6 @@ repo = 'osyo-manga/shabadou.vim'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'justmao945/vim-clang'

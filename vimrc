@@ -2,12 +2,10 @@
 "* Vim Environment {{{
 "**************************************************
 scriptencoding utf-8
-if $MSYSTEM != ''
-	finish
-endif
 if &compatible==1
 	set nocompatible
 endif
+set foldmethod=marker
 set cmdheight=2
 set ignorecase
 set smartcase
@@ -223,7 +221,19 @@ if dein#check_install()
 endif
 
 filetype plugin indent on
-
+"Unite.vim
+let g:unite_source_menu_menus = {
+			\  "shortcut" : {
+			\    "description" : "sample unite-menu",
+			\    "command_candidates" : [
+			\      ["file", "Unite file"],
+			\      ["file mru", "Unite file_mru"],
+			\      ["unite-output:message", "Unite output:message"],
+			\      ["check key-mapping", "Unite mapping"],
+			\      ["grep", "Unite grep"],
+			\    ],
+			\  },
+			\}
 "* denite.vim
 " Change file_rec command.
 "call denite#custom#var('file_rec', 'command',
