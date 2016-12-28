@@ -263,6 +263,13 @@ let g:neocomlete#sources#syntax#min_keyword_length = 3
 let g:vimfiler_as_default_explorer = 1
 "セーフモードを無効化する
 let g:vimfiler_safe_mode_by_default = 0
+"change icons (like Textmate)
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-' 
+let g:vimfiler_marked_file_icon = '*'
+
 
 "* vim-clang
 "disable auto completion for vim-clang
