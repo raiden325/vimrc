@@ -39,6 +39,8 @@ set isprint=@,~-247,249-255
 set tags=./tags,tags,../tags
 set diffopt=filler,iwhite
 set helplang=ja,en
+set iminsert=0
+set imsearch=0
 "**************************************************
 " }}}
 "**************************************************
@@ -234,6 +236,8 @@ let g:unite_source_menu_menus = {
 			\    ],
 			\  },
 			\}
+"Uniteによるstatuslineの上書きを禁止
+let g:unite_force_overwrite_statusline = 0
 "* denite.vim
 " Change file_rec command.
 "call denite#custom#var('file_rec', 'command',
