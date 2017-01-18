@@ -52,3 +52,6 @@ repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'justmao945/vim-clang'
+
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'

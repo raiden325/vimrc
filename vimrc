@@ -157,8 +157,8 @@ endif
 "**************************************************
 autocmd!
 autocmd QuickFixCmdPost *grep* cwindow 8
-autocmd BufNewFile *.sh 0r $HOME/.vim/template/sh.txt
-autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
+"autocmd BufNewFile *.sh 0r $HOME/.vim/template/sh.txt
+"autocmd BufNewFile *.c 0r $HOME/.vim/template/c.txt
 "**************************************************
 " }}}
 "**************************************************
@@ -369,6 +369,10 @@ function! LightLineMode()
 	return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+"* sonictemplate-vim
+let g:sonictemplate_vim_template_dir = [
+			\ '~/.vim/dein/repos/github.com/mattn/sonictemplate-vim/template'
+			\]
 "**************************************************
 " }}}
 "**************************************************
