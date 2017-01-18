@@ -41,6 +41,7 @@ set diffopt=filler,iwhite
 set helplang=ja,en
 set iminsert=0
 set imsearch=0
+set number
 "**************************************************
 " }}}
 "**************************************************
@@ -273,7 +274,8 @@ let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-' 
 let g:vimfiler_marked_file_icon = '*'
-
+"vimfilerによるstatuslineの上書きを禁止
+let g:vimfiler_force_overwrite_statusline = 0
 
 "* vim-clang
 "disable auto completion for vim-clang
