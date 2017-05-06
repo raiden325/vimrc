@@ -2,7 +2,7 @@
 "* Vim Environment {{{
 "**************************************************
 scriptencoding utf-8
-if &compatible==1
+if &compatible
 	set nocompatible
 endif
 set foldmethod=marker
@@ -152,7 +152,6 @@ endif
 " }}}
 "**************************************************
 
-"**************************************************
 "* Autocmd {{{
 "**************************************************
 autocmd!
@@ -185,43 +184,37 @@ endif
 "**************************************************
 "* Plugin Settings{{{
 "**************************************************
-"* dein.vim
-" プラグインが実際にインストールされるディレクトリ
-let s:dein_dir = expand('~/.vim/dein')
-" dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vim がなければ github から落としてくる
-if &runtimepath !~# '/dein.vim'
-	if !isdirectory(s:dein_repo_dir)
-		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-	endif
-	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+"minpac
+"Try to load minpac.
+silent! packadd minpac
+if !exists('*minpac#init')
+	"minpac is not available.
+else
+	call minpac#init()
+	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+	call minpac#add('k-takata/minpac', {'type': 'opt'})
+	" Add other plugins here.
+	call minpac#add('Shougo/vimproc.vim', {'do': {-> system('make')}})
+	call minpac#add('Shougo/neocomplete.vim')
+	call minpac#add('Shougo/unite.vim')
+	call minpac#add('Shougo/neomru.vim')
+	call minpac#add('Shougo/vimshell')
+	call minpac#add('Shougo/vimfiler')
+	call minpac#add('Shougo/neosnippet')
+	call minpac#add('Shougo/neosnippet-snippets')
+	call minpac#add('thinca/vim-quickrun')
+	call minpac#add('osyo-manga/unite-quickfix')
+	call minpac#add('osyo-manga/shabadou.vim')
+	call minpac#add('itchyny/lightline.vim')
+	call minpac#add('justmao945/vim-clang')
+	call minpac#add('mattn/sonictemplate-vim')
+	call minpac#add('vim-jp/vimdoc-ja')
+	"load the plugins right now.
+	packloadall
 endif
 
-" 設定開始
-if dein#load_state(s:dein_dir)
-	call dein#begin(s:dein_dir)
-
-	" プラグインリストを収めた TOML ファイル
-	" ~/.vim/rc/dein.toml,deinlazy.tomlを用意する
-	let g:rc_dir = expand('~/.vim/rc')
-	let s:toml = g:rc_dir . '/dein.toml'
-	let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
-
-	" TOML を読み込み、キャッシュしておく
-	call dein#load_toml(s:toml, {'lazy': 0})
-	call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
-	" 設定終了
-	call dein#end()
-	call dein#save_state()
-endif
-
-" もし、未インストールものものがあったらインストール
-if dein#check_install()
-	call dein#install()
-endif
+" Load the plugins right now. (optional)
+"packloadall
 
 filetype plugin indent on
 "Unite.vim
@@ -373,6 +366,9 @@ endfunction
 let g:sonictemplate_vim_template_dir = [
 			\ '~/.vim/dein/repos/github.com/mattn/sonictemplate-vim/template'
 			\]
+
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean()
 "**************************************************
 " }}}
 "**************************************************
