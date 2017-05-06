@@ -188,7 +188,8 @@ endif
 "Try to load minpac.
 silent! packadd minpac
 if !exists('*minpac#init')
-	"minpac is not available.
+	"minpacがロードされていない
+	"Note:minpacがインストールされていなければ自動でインストール
 else
 	call minpac#init()
 	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
@@ -197,6 +198,7 @@ else
 	call minpac#add('Shougo/vimproc.vim', {'do': {-> system('make')}})
 	call minpac#add('Shougo/neocomplete.vim')
 	call minpac#add('Shougo/unite.vim')
+	call minpac#add('Shougo/unite-outline.vim')
 	call minpac#add('Shougo/neomru.vim')
 	call minpac#add('Shougo/vimshell')
 	call minpac#add('Shougo/vimfiler')
