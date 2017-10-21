@@ -42,6 +42,11 @@ set helplang=ja,en
 set iminsert=0
 set imsearch=0
 set number
+set cursorline
+if !has('gui_running')
+	set tgc		"use termguicolors
+endif
+
 "**************************************************
 " }}}
 "**************************************************
@@ -152,6 +157,7 @@ endif
 " }}}
 "**************************************************
 
+"**************************************************
 "* Autocmd {{{
 "**************************************************
 autocmd!
@@ -171,7 +177,7 @@ if has("gui_running")
 	colorscheme desert
 else
 	if has('unix')
-		silent! colorscheme torte
+		silent! colorscheme desert
 	endif
 	if has('win32') || has('win64')
 		silent! colorscheme torte
@@ -211,6 +217,8 @@ else
 	call minpac#add('justmao945/vim-clang')
 	call minpac#add('mattn/sonictemplate-vim')
 	call minpac#add('vim-jp/vimdoc-ja')
+	call minpac#add('vim-scripts/DirDiff.vim')
+	call minpac#add('vim-scripts/grep.vim')
 	"load the plugins right now.
 	packloadall
 endif
