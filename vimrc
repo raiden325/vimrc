@@ -201,116 +201,17 @@ else
 	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
 	call minpac#add('k-takata/minpac', {'type': 'opt'})
 	" Add other plugins here.
-	call minpac#add('Shougo/vimproc.vim', {'do': {-> system('make')}})
-	call minpac#add('Shougo/neocomplete.vim')
-	call minpac#add('Shougo/unite.vim')
-	call minpac#add('Shougo/unite-outline.vim')
-	call minpac#add('Shougo/neomru.vim')
-	call minpac#add('Shougo/vimshell')
-	call minpac#add('Shougo/vimfiler')
-	call minpac#add('Shougo/neosnippet')
-	call minpac#add('Shougo/neosnippet-snippets')
-	call minpac#add('thinca/vim-quickrun')
-	call minpac#add('osyo-manga/unite-quickfix')
-	call minpac#add('osyo-manga/shabadou.vim')
 	call minpac#add('itchyny/lightline.vim')
-	call minpac#add('justmao945/vim-clang')
 	call minpac#add('mattn/sonictemplate-vim')
 	call minpac#add('vim-jp/vimdoc-ja')
 	call minpac#add('vim-scripts/DirDiff.vim')
-	call minpac#add('vim-scripts/grep.vim')
+	call minpac#add('scrooloose/nerdtree')
+	call minpac#add('ctrlpvim/ctrlp.vim')
 	"load the plugins right now.
 	packloadall
 endif
 
-" Load the plugins right now. (optional)
-"packloadall
-
 filetype plugin indent on
-"Unite.vim
-let g:unite_source_menu_menus = {
-			\  "shortcut" : {
-			\    "description" : "sample unite-menu",
-			\    "command_candidates" : [
-			\      ["file", "Unite file"],
-			\      ["file mru", "Unite file_mru"],
-			\      ["unite-output:message", "Unite output:message"],
-			\      ["check key-mapping", "Unite mapping"],
-			\      ["grep", "Unite grep"],
-			\    ],
-			\  },
-			\}
-"Uniteによるstatuslineの上書きを禁止
-let g:unite_force_overwrite_statusline = 0
-"* denite.vim
-" Change file_rec command.
-"call denite#custom#var('file_rec', 'command',
-"\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" Change ignore_globs
-"call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-"\ [ '.git/', '.ropeproject/', '__pycache__/',
-"\ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-"* neocomlete
-let g:neocomplete#enable_at_startup = 1
-"for vim-clang
-if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"_区切りの補完の有効化
-"let g:neocomlete#enable_underbar_completion = 1
-"let g:neocomlete#enable_camel_completion = 1
-"シンタックスをキャッシュする最小文字長の設定
-let g:neocomlete#sources#syntax#min_keyword_length = 3
-"ファイルタイプ毎に補完のディクショナリを設定
-""let g:neocomlete_dictionary_filetype_lists={
-"* vimfiler
-"デフォルトのファイラーにする
-let g:vimfiler_as_default_explorer = 1
-"セーフモードを無効化する
-let g:vimfiler_safe_mode_by_default = 0
-"change icons (like Textmate)
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-' 
-let g:vimfiler_marked_file_icon = '*'
-"vimfilerによるstatuslineの上書きを禁止
-let g:vimfiler_force_overwrite_statusline = 0
-
-"* vim-clang
-"disable auto completion for vim-clang
-let g:clang_auto = 0
-
-"default longset can not work with neocomplete
-let g:clang_c_completeopt = 'menuone,preview'
-let g:clang_cpp_completeopt = 'menuone,preview'
-
-let g:clang_c_options = '-std=c11'
-let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
-
-"* vim-quickrun
-"quickrunのデフォルト設定
-let g:quickrun_config = {
-		\  "_" : {
-		\    "hook/close_unite_quickfix/enable_hook_loaded" : 1,
-		\    "hook/unite_quickfix/enable_failure" : 1,
-		\    "hook/close_quickfix/enable_exit" : 1,
-		\    "hook/close_buffer/enable_failure" : 1,
-		\    "hook/close_buffer/enable_empty_data" : 1,
-		\    "outputter" : "multi:buffer:quickfix",
-		\    "hook/shabadoubi_touch_henshin/enable" : 1,
-		\    "hook/shabadoubi_touch_henshin/wait" : 20,
-		\    "outputter/buffer/split" : ":botright 8sp",
-		\    "runner" : "vimproc",
-		\    "runner/vimproc/updatetime" : 40
-		\    },
-	\}
-"<C-c>で実行を強制終了させる
-"quickrun.vimが実行していない場合には<C-c>を呼び出す
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 "* lightline.vim
 let g:lightline = {
@@ -376,6 +277,11 @@ endfunction
 let g:sonictemplate_vim_template_dir = [
 			\ '~/.vim/dein/repos/github.com/mattn/sonictemplate-vim/template'
 			\]
+
+"* NERDTree
+let g:NERDTreeDirArros = 1
+let g:NERDTreeDirArrowExpandable = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
 
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean()
