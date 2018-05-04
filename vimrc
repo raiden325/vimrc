@@ -194,8 +194,8 @@ endif
 "Try to load minpac.
 silent! packadd minpac
 if !exists('*minpac#init')
-	"minpacがロードされていない
-	"Note:minpacがインストールされていなければ自動でインストール
+	"minpacがロードされていない -> minpacを自動インストール
+	execute '!mkdir -p ~/.vim/pack/minpac/opt && cd ~/.vim/pack/minpac/opt && git clone https://github.com/k-takata/minpac.git'
 else
 	call minpac#init()
 	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
