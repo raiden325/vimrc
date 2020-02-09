@@ -223,7 +223,6 @@ let g:lightline = {
 		\ 'component_function': {
 		\ 'modified': 'LightLineModified',
 		\ 'readonly': 'LightLineReadonly',
-		\ 'fugitive': 'LightLineFugitive',
 		\ 'filename': 'LightLineFilename',
 		\ 'fileformat': 'LightLineFileformat',
 		\ 'filetype': 'LightLineFiletype',
@@ -233,28 +232,17 @@ let g:lightline = {
 	\ }
 
 function! LightLineModified()
-	return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+	return &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineReadonly()
- return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+ return &readonly && &filetype !=# 'help' ? 'RO' : 'RW'
 endfunction
 
 function! LightLineFilename()
 	return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-			\ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-			\  &ft == 'unite' ? unite#get_status_string() :
-			\  &ft == 'vimshell' ? vimshell#get_status_string() :
-			\ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+			\ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
 			\ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-function! LightLineFugitive()
-	if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-		return fugitive#head()
-	else
-		return ''
-	endif
 endfunction
 
 function! LightLineFileformat()
