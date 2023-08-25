@@ -192,10 +192,19 @@ endif
 "**************************************************
 "minpac
 "Try to load minpac.
+if has('win32') || has('win64')
+	set packpath=%USERPROFILE%\vimfiles
+else
+	set packpath=~/.vim
+endif
 silent! packadd minpac
 if !exists('*minpac#init')
 	"minpacがロードされていない -> minpacを自動インストール
-	execute '!mkdir -p ~/.vim/pack/minpac/opt && cd ~/.vim/pack/minpac/opt && git clone https://github.com/k-takata/minpac.git'
+	if has('win32') || has('win64')
+		execute '!mkdir %USERPROFILE%\.vim\pack\minpac\opt && cd $HOME\.vim\pack\minpac\opt && git clone https://github.com/k-takata\minpac.git'
+	else
+		execute '!mkdir -p ~/.vim/pack/minpac/opt && cd ~/.vim/pack/minpac/opt && git clone https://github.com/k-takata/minpac.git'
+	endif
 else
 	call minpac#init()
 	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
