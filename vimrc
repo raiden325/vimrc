@@ -197,28 +197,30 @@ if has('win32') || has('win64')
 else
 	set packpath=~/.vim
 endif
-silent! packadd minpac
-if !exists('*minpac#init')
-	"minpacがロードされていない -> minpacを自動インストール
-	if has('win32') || has('win64')
-		execute '!mkdir %USERPROFILE%\.vim\pack\minpac\opt && cd $HOME\.vim\pack\minpac\opt && git clone https://github.com/k-takata\minpac.git'
+function! PackInit() abort
+packadd minpac
+	if !exists('g:loaded_minpac')
+		"minpacがロードされていない -> minpacを自動インストール
+		if has('win32') || has('win64')
+			execute '!mkdir %USERPROFILE%\.vim\pack\minpac\opt && cd $HOME\.vim\pack\minpac\opt && git clone https://github.com/k-takata\minpac.git'
+		else
+			execute '!mkdir -p ~/.vim/pack/minpac/opt && cd ~/.vim/pack/minpac/opt && git clone https://github.com/k-takata/minpac.git'
+		endif
 	else
-		execute '!mkdir -p ~/.vim/pack/minpac/opt && cd ~/.vim/pack/minpac/opt && git clone https://github.com/k-takata/minpac.git'
+		call minpac#init()
+		" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
+		call minpac#add('k-takata/minpac', {'type': 'opt'})
+		" Add other plugins here.
+		call minpac#add('itchyny/lightline.vim')
+		call minpac#add('mattn/sonictemplate-vim')
+		call minpac#add('vim-jp/vimdoc-ja')
+		call minpac#add('vim-scripts/DirDiff.vim')
+		call minpac#add('scrooloose/nerdtree')
+		call minpac#add('ctrlpvim/ctrlp.vim')
+		"load the plugins right now.
+		packloadall
 	endif
-else
-	call minpac#init()
-	" minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
-	call minpac#add('k-takata/minpac', {'type': 'opt'})
-	" Add other plugins here.
-	call minpac#add('itchyny/lightline.vim')
-	call minpac#add('mattn/sonictemplate-vim')
-	call minpac#add('vim-jp/vimdoc-ja')
-	call minpac#add('vim-scripts/DirDiff.vim')
-	call minpac#add('scrooloose/nerdtree')
-	call minpac#add('ctrlpvim/ctrlp.vim')
-	"load the plugins right now.
-	packloadall
-endif
+endfunction
 
 filetype plugin indent on
 
@@ -280,8 +282,9 @@ let g:NERDTreeDirArros = 1
 let g:NERDTreeDirArrowExpandable = '▶'
 let g:NERDTreeDirArrowCollapsible = '▼'
 
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean()
+command! PackUpdate source $MYVIMRC | call PackInit() | call minpac#update()
+command! PackClean source $MYVIMRC | call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
 "**************************************************
 " }}}
 "**************************************************
