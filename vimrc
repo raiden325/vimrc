@@ -198,7 +198,7 @@ else
 	set packpath=~/.vim
 endif
 function! PackInit() abort
-packadd minpac
+	packadd minpac
 	if !exists('g:loaded_minpac')
 		"minpacがロードされていない -> minpacを自動インストール
 		if has('win32') || has('win64')
